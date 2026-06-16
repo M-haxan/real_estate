@@ -1,15 +1,19 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { Toaster } from 'react-hot-toast';
 import Home from './pages/Home'
 import About from './pages/About'
 import Profile from './pages/Profile'
+
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Header from './components/Header'
+
 function App() {
 
   return (
     
       <BrowserRouter>
+      <Toaster position="top-right" />
       <Header/>
         <Routes>
           <Route path='/' element={<Home/>}/>
