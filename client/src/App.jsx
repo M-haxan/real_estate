@@ -3,7 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import Home from './pages/Home'
 import About from './pages/About'
 import Profile from './pages/Profile'
-
+import PrivateRoute from './components/PrivateRoute'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Header from './components/Header'
@@ -18,7 +18,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/about' element={<About/>}/>
-          <Route path='/profile' element={<Profile/>}/>
+          <Route element={<PrivateRoute/>}>
+            <Route path='/profile' element={<Profile/>}/>
+          </Route>
+          
           <Route path='/sign-up' element={<Signup/>}/>
           <Route path='/sign-in' element={<Signin/>}/>
         </Routes>

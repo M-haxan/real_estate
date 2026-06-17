@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { FiSearch, FiMenu, FiX } from "react-icons/fi"; // FiMenu (Hamburger) aur FiX (Close) add kiye hain
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
-  
+  const { currentUser } = useSelector((state) => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -31,7 +32,17 @@ export default function Header() {
         <ul className='hidden sm:flex gap-4 items-center'>
           <li className='text-slate-700 hover:underline'> <Link to="/">Home</Link> </li>
           <li className='text-slate-700 hover:underline'> <Link to="/about">About</Link> </li>
-          <li className='text-slate-700 hover:underline font-bold'> <Link to="/sign-in">Sign in</Link> </li>
+          {currentUser ? (
+            <Link to="/profile">
+              <img 
+                src={currentUser.avatar }
+                alt="profile"
+                className='h-9 w-9 rounded-full object-cover'
+              />
+            </Link>
+          ) : (
+            <li className='text-slate-700 hover:underline font-bold'> <Link to="/sign-in">Sign in</Link> </li>
+          )}
         </ul>
         <div className='sm:hidden flex items-center'>
           <button 
@@ -67,9 +78,22 @@ export default function Header() {
             <li className='text-slate-700 hover:bg-slate-300 p-2 rounded-md'> 
               <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link> 
             </li>
-            <li className='text-slate-700 hover:bg-slate-300 p-2 rounded-md font-bold'> 
-              <Link to="/sign-in" onClick={() => setIsMenuOpen(false)}>Sign in</Link> 
-            </li>
+            {currentUser ? (
+              <li className='text-slate-700 hover:bg-slate-300 p-2 rounded-md'>
+                <Link to="/profile" onClick={() => setIsMenuOpen(false)} className='flex items-center gap-2'>
+                  <img 
+                    src={currentUser.avatar || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'}
+                    alt="profile"
+                    className='h-8 w-8 rounded-full object-cover'
+                  />
+                  <span>Profile</span>
+                </Link>
+              </li>
+            ) : (
+              <li className='text-slate-700 hover:bg-slate-300 p-2 rounded-md font-bold'> 
+                <Link to="/sign-in" onClick={() => setIsMenuOpen(false)}>Sign in</Link> 
+              </li>
+            )}
           </ul>
         </div>
       )}

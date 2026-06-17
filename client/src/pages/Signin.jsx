@@ -119,6 +119,13 @@ export default function Signin() {
               
                 <Oauth/>
               </div>
+              
+              <p className="text-gray-400 text-[13px] text-center mt-6">
+                Don't have an account?{' '}
+                <Link to='/sign-up' className="text-blue-500 hover:underline transition-colors">
+                  Sign Up
+                </Link>
+              </p>
             </form>
           
           </div>
