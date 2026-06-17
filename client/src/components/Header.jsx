@@ -9,11 +9,11 @@ export default function Header() {
   return (
     <header className='bg-slate-200 shadow-md relative'>
       
-      <div className='flex justify-between items-center max-w-6xl mx-auto w-full p-4'>
+      <div className='flex justify-between items-center max-w-6xl mx-auto w-full p-2'>
   
         <Link to="/" className='flex items-center'>
-          <img src="Logo.png" className='h-10 sm:h-16 w-auto' alt="Logo" />
-          <h1 className='text-slate-700 text-lg sm:text-xl font-black ml-2'>
+          <img src="Logo.png" className='h-8 sm:h-16 w-auto' alt="Logo" />
+          <h1 className='text-slate-700 text-lg sm:text-md font-black ml-2'>
             Real Estate
           </h1>
         </Link>
