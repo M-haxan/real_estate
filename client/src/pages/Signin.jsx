@@ -7,6 +7,7 @@ import { RiLockPasswordFill } from "react-icons/ri"
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
+import Oauth from '../components/Oauth';
 
 import toast from 'react-hot-toast';
 export default function Signin() {
@@ -115,12 +116,8 @@ export default function Signin() {
                   {loadings ? 'Sign in ...' : 'Sign In'}
               
                 </button>
-                <button
-                  type="submit"
-                  className="w-full bg-[#BC2727] text-white py-2 font-semibold tracking-widest text-sm hover:bg-[#ed4a4a] transition-colors"
-                >
-                  Continue with Google
-                </button>
+              
+                <Oauth/>
               </div>
             </form>
           
