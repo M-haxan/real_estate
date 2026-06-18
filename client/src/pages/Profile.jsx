@@ -5,7 +5,15 @@ import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri"
 import { useRef, useEffect, useState } from 'react'
 import { FaCamera } from "react-icons/fa";
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
+import {
+  updateUserStart,
+  updateUserFailure,
+  updateUserSuccess,
+} from '../redux/user/userSlice'
 export default function Profile() {
   const { currentUser } = useSelector((state) => state.user)
   const fileref = useRef(null)
@@ -15,6 +23,9 @@ export default function Profile() {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
+   const [updateSuccess, setUpdateSuccess] = useState(false);
+   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handlefile = () => {
     fileref.current.click()
@@ -62,11 +73,44 @@ export default function Profile() {
 
     xhr.send(data);
   };
-
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+    console.log(formData);
+  };
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true)
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        toast.error(data.message|| "Something went wrong!" )
+        setLoading(false)
+        return;
+      }
+      
+      dispatch(updateUserSuccess(data));
+      setUpdateSuccess(true);
+      toast.success("User updated successfully!")
+      setLoading(false)
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+      toast.error(error.message || "Something went wrong!")
+      setLoading(false)
+    }
+  };
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
-      <form className='flex flex-col gap-2'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-2'>
         
         
         <input 
@@ -116,6 +160,7 @@ export default function Profile() {
             type="text"
             placeholder="Username"
             defaultValue={currentUser.username}
+            onChange={handleChange}
             className="bg-transparent w-full px-4 py-2 text-sm text-gray-700 outline-none placeholder-gray-400"
             id='username'
           />
@@ -129,6 +174,7 @@ export default function Profile() {
             type="email"
             placeholder="Email"
             defaultValue={currentUser.email}
+            onChange={handleChange}
             className="bg-transparent w-full px-4 py-2 text-sm text-gray-700 outline-none placeholder-gray-400"
             id='email'
           />
@@ -141,15 +187,18 @@ export default function Profile() {
           <input
             type="password"
             placeholder="***********"
+            
+            onChange={handleChange}
             className="bg-transparent w-full px-4 py-2 text-sm text-gray-700 outline-none placeholder-gray-400"
             id='password'
           />
         </div>
         <button
+        disabled={loading}
           type="submit"
           className=" w-full bg-[#3D4A5D] text-white py-3 font-semibold tracking-widest text-sm hover:bg-gray-700 transition-colors rounded"
         >
-          Update
+           {loading ? 'Loading...' : 'Update'}
         </button>
       </form>
       
