@@ -167,7 +167,7 @@ export default function Profile() {
 <div 
     className='relative w-24 h-24 self-center mt-2 cursor-pointer group hover:scale-105 transition-transform duration-300' 
     onClick={handlefile}
-    title='Change Profile Picture' // Mouse le janay pr chota sa title dikhay ga
+    title='Change Profile Picture' 
   >
     
     <img 
@@ -239,10 +239,13 @@ export default function Profile() {
         <button
         disabled={loading}
           type="submit"
-          className=" w-full bg-[#3D4A5D] text-white py-3 font-semibold tracking-widest text-sm hover:bg-gray-700 transition-colors rounded"
+          className=" w-full bg-[#3D4A5D] text-white py-3 font-semibold tracking-widest text-md hover:bg-gray-700 transition-colors rounded"
         >
            {loading ? 'Loading...' : 'Update'}
         </button>
+        <Link className='w-full text-center  bg-green-700 text-white py-3 font-semibold tracking-widest text-md hover:bg-gray-700 transition-colors rounded' to={"/create-listing"}>
+        Create Listing
+        </Link>
       </form>
       
       <div className='flex justify-between mt-5'>
