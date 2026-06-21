@@ -1,11 +1,28 @@
-import React, { useState } from 'react';
-import { FiSearch, FiMenu, FiX } from "react-icons/fi"; // FiMenu (Hamburger) aur FiX (Close) add kiye hain
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { FiSearch, FiMenu, FiX } from "react-icons/fi"; 
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+   const navigate = useNavigate();
+   const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+   useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search])
 
   return (
     <header className='bg-slate-200 shadow-md relative'>
@@ -19,14 +36,19 @@ export default function Header() {
           </h1>
         </Link>
 
-        <form className='hidden sm:flex bg-slate-100 rounded-lg p-2 items-center'>
-          <input 
-            type="text" 
-            placeholder="Search..." 
-            className='bg-transparent border-none focus:outline-none w-64 px-2' 
+         <form
+          onSubmit={handleSubmit}
+          className='bg-slate-100 p-3 rounded-lg flex items-center'
+        >
+          <input
+            type='text'
+            placeholder='Search...'
+            className='bg-transparent focus:outline-none w-24 sm:w-64'
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit">
-            <FiSearch className='text-slate-900' />
+          <button>
+            <FiSearch className='text-slate-600' />
           </button>
         </form>
         <ul className='hidden sm:flex gap-4 items-center'>
@@ -58,17 +80,21 @@ export default function Header() {
         <div className='sm:hidden absolute top-full left-0 w-full bg-slate-200 border-t border-slate-300 shadow-lg p-4 z-50'>
           
         
-          <form className='bg-slate-100 rounded-lg p-2 flex items-center w-full mb-4'>
-            <input 
-              type="text" 
-              placeholder="Search properties..." 
-              className='bg-transparent border-none focus:outline-none w-full px-2' 
-            />
-            <button type="submit">
-              <FiSearch className='text-slate-900' />
-            </button>
-          </form>
-
+           <form
+          onSubmit={handleSubmit}
+          className='bg-slate-100 p-3 rounded-lg flex items-center'
+        >
+          <input
+            type='text'
+            placeholder='Search...'
+            className='bg-transparent focus:outline-none w-24 sm:w-64'
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button>
+            <FiSearch className='text-slate-600' />
+          </button>
+        </form>
           
           <ul className='flex flex-col gap-4'>
             {/* onClick par menu close ho jayega taa ke naye page par menu band rahay */}
