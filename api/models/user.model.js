@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     }, 
     avatar : {
         type : String,
-        default : 'https://thumbs.dreamstime.com/b/profile-face-young-woman-isolated-white-background-128443438.jpg?w=992'
+        default : 'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png'
     },
     
 },  
