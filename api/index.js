@@ -12,10 +12,14 @@ app.use(cookieParser());
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
+  app.get('/', (req, res) => {
+  res.send('MERN Estate API is running perfectly! 🚀');
+});
 const port = 7860;
-app.listen(port, () => {
+app.listen(port, '0.0.0.0',  () => {
   console.log(`API listening at http://localhost:${port}`);
 });
+
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter)
