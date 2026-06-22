@@ -12,7 +12,7 @@ app.use(cookieParser());
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
-const port = 3000;
+const port = 7860;
 app.listen(port, () => {
   console.log(`API listening at http://localhost:${port}`);
 });
