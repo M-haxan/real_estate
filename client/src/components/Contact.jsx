@@ -13,9 +13,9 @@ export default function Contact({ listing }) {
       try {
         const res = await fetch(`/api/user/${listing.userRef}`);
         if (!res.ok) {
-  console.log("Error fetching landlord, status:", res.status);
-  return; // Agar backend se 404 ya error aaye, toh code ko yahin rok do
-}
+          console.log("Error fetching landlord, status:", res.status);
+          return; // Agar backend se 404 ya error aaye, toh code ko yahin rok do
+        }
         const data = await res.json();
 
         setLandlord(data);
