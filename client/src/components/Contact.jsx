@@ -12,7 +12,12 @@ export default function Contact({ listing }) {
     const fetchLandlord = async () => {
       try {
         const res = await fetch(`/api/user/${listing.userRef}`);
+        if (!res.ok) {
+  console.log("Error fetching landlord, status:", res.status);
+  return; // Agar backend se 404 ya error aaye, toh code ko yahin rok do
+}
         const data = await res.json();
+
         setLandlord(data);
       } catch (error) {
         console.log(error);
