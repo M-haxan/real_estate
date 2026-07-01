@@ -278,9 +278,9 @@ export default function UpdateListing() {
                     <p className='text-red-700 text-sm'>{imageUploadError && imageUploadError}</p>
                     {
                         formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
-                            <div key={url} className='flex justify-between border items-center p-3'>
-                                <img src={url} alt='listing images ' className='w-20 h-20 object-contain rounded' />
-                                <button type='button' onClick={() => handleRemoveImage(index)} className='text-red-700 opacity-75 uppercase p-3 hover:opacity-95'>Delete</button>
+                            <div key={url} className='flex justify-between border items-center p-3 rounded-lg bg-gray-50'>
+                                <img src={url} alt='listing images ' className='w-20 h-20 object-cover rounded-md border border-gray-200' />
+                                <button type='button' onClick={() => handleRemoveImage(index)} className='text-red-700 opacity-75 uppercase p-3 hover:opacity-95 font-semibold text-sm hover:underline'>Delete</button>
                             </div>
                         ))
                     }

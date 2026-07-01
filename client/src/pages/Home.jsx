@@ -73,15 +73,20 @@ export default function Home() {
         {offerListings &&
           offerListings.length > 0 &&
           offerListings.map((listing) => (
-            <SwiperSlide>
-              <div
-                style={{
-                  background: `url(${listing.imageUrls[0]}) center no-repeat`,
-                  backgroundSize: 'cover',
-                }}
-                className='h-[500px]'
-                key={listing._id}
-              ></div>
+            <SwiperSlide key={listing._id}>
+              <div className='h-[500px] relative overflow-hidden flex items-center justify-center bg-slate-950'>
+                <div
+                  className='absolute inset-0 bg-cover bg-center blur-3xl opacity-70 scale-110 pointer-events-none'
+                  style={{
+                    backgroundImage: `url(${listing.imageUrls[0]})`,
+                  }}
+                ></div>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt={listing.name}
+                  className='max-h-full max-w-full object-contain relative z-10 select-none pointer-events-none shadow-2xl'
+                />
+              </div>
             </SwiperSlide>
           ))}
       </Swiper>
@@ -95,7 +100,7 @@ export default function Home() {
               <h2 className='text-2xl font-semibold text-slate-600'>Recent offers</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
             </div>
-            <div className='flex flex-wrap gap-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
               {offerListings.map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
@@ -108,7 +113,7 @@ export default function Home() {
               <h2 className='text-2xl font-semibold text-slate-600'>Recent places for rent</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=rent'}>Show more places for rent</Link>
             </div>
-            <div className='flex flex-wrap gap-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
               {rentListings.map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
@@ -121,7 +126,7 @@ export default function Home() {
               <h2 className='text-2xl font-semibold text-slate-600'>Recent places for sale</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=sale'}>Show more places for sale</Link>
             </div>
-            <div className='flex flex-wrap gap-4'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
               {saleListings.map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}

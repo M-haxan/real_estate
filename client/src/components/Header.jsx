@@ -38,12 +38,12 @@ export default function Header() {
 
          <form
           onSubmit={handleSubmit}
-          className='bg-slate-100 p-3 rounded-lg flex items-center'
+          className='bg-slate-100 hidden sm:flex p-3 rounded-lg items-center'
         >
           <input
             type='text'
             placeholder='Search...'
-            className='bg-transparent focus:outline-none w-24 sm:w-64'
+            className='bg-transparent  focus:outline-none w-24 sm:w-64'
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -82,7 +82,7 @@ export default function Header() {
         
            <form
           onSubmit={handleSubmit}
-          className='bg-slate-100 p-3 rounded-lg flex items-center'
+          className='bg-slate-100 p-3 rounded-lg flex justify-between items-center'
         >
           <input
             type='text'
@@ -97,7 +97,7 @@ export default function Header() {
         </form>
           
           <ul className='flex flex-col gap-4'>
-            {/* onClick par menu close ho jayega taa ke naye page par menu band rahay */}
+            
             <li className='text-slate-700 hover:bg-slate-300 p-2 rounded-md'> 
               <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link> 
             </li>
